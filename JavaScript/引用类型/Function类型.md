@@ -23,9 +23,9 @@
   };
   
   //创建命名函数
-  var result = function sum(num1, num2){
+  var result = (function sum(num1, num2){
       return num1+num2;
-  }
+  })
   ```
 
   - 表达式语句创建函数主要用于：
