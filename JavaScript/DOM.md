@@ -143,11 +143,11 @@ Document类型表示文档
 
     - **documentElement属性**
 
-      始终指向HTML页面中的<html>元素：` document.documentElement`
+      始终指向HTML页面中的\<html>元素：` document.documentElement`
 
     - **body属性**
 
-      直接指向<body>元素：`document.body`
+      直接指向\<body>元素：`document.body`
 
     - **doctype属性**
 
@@ -160,9 +160,9 @@ Document类型表示文档
 
     -  **title属性**
 
-      包含着 <title>元素中的文本，即显示在浏览器窗口的标题栏或标签页上的文本：` document.title`
+      包含着\<title>元素中的文本，即显示在浏览器窗口的标题栏或标签页上的文本：` document.title`
 
-      *修改title属性的值不会改变<title> 元素
+      *修改title属性的值不会改变\<title> 元素
 
     -  **URL属性**
 
@@ -217,10 +217,10 @@ Document类型表示文档
 
 - **特殊集合**
 
-  - document.anchors，包含文档中所有带 name 特性的<a>元素
-  - document.forms，包含文档中所有的<form>元素
-  - document.images，包含文档中所有的<img>元素
-  - document.links，包含文档中所有带href特性的<a>元素
+  - document.anchors，包含文档中所有带 name 特性的\<a>元素
+  - document.forms，包含文档中所有的\<form>元素
+  - document.images，包含文档中所有的\<img>元素
+  - document.links，包含文档中所有带href特性的\<a>元素
 
   *这些集合都是HTMLCollection对象
 
@@ -527,33 +527,33 @@ DocumentType类型在Web浏览器中并不常用，仅有Firefox、Safari、Chro
 
 ### 操作表格
 
-为了方便构建表格，HTML DOM为<table>、<tbody> 和<tr>元素添加了一些属性和方法：
+为了方便构建表格，HTML DOM为\<table>、\<tbody> 和\<tr>元素添加了一些属性和方法：
 
-- **<table>**
+- **\<table>**
   - **属性**
-    - caption：保存着对<caption>元素（如果有）的指针
-    - tBodies：是一个<tbody>元素的 HTMLCollection
-    - tFoot：保存着对<tfoot>元素（如果有）的指针
-    - tHead：保存着对<thead>元素（如果有）的指针
+    - caption：保存着对\<caption>元素（如果有）的指针
+    - tBodies：是一个\<tbody>元素的 HTMLCollection
+    - tFoot：保存着对\<tfoot>元素（如果有）的指针
+    - tHead：保存着对\<thead>元素（如果有）的指针
     - rows：是一个表格中所有行的 HTMLCollection。 
   - **方法**
-    - createTHead()：创建<thead>元素，将其放到表格中，返回引用
-    - createTFoot()：创建<tfoot>元素，将其放到表格中，返回引用
-    - createCaption()：创建<caption>元素，将其放到表格中，返回引用
-    -  deleteTHead()：删除<thead>元素
-    - deleteTFoot()：删除<tfoot>元素
-    - deleteCaption()：删除<caption>元素
+    - createTHead()：创建\<thead>元素，将其放到表格中，返回引用
+    - createTFoot()：创建\<tfoot>元素，将其放到表格中，返回引用
+    - createCaption()：创建\<caption>元素，将其放到表格中，返回引用
+    -  deleteTHead()：删除\<thead>元素
+    - deleteTFoot()：删除\<tfoot>元素
+    - deleteCaption()：删除\<caption>元素
     - deleteRow(pos)：删除指定位置的行
     - insertRow(pos)：向 rows 集合中的指定位置插入一行。
-- **<tbody>**
+- **\<tbody>**
   - **属性**
-    - rows：保存着<tbody>元素中行的 HTMLCollection
+    - rows：保存着\<tbody>元素中行的HTMLCollection
   - **方法**
     - deleteRow(pos)：删除指定位置的行
     - insertRow(pos)：向 rows 集合中的指定位置插入一行，返回对新插入行的引用
-- **<tr>**
+- **\<tr>**
   - **属性**
-    - cells：保存着<tr>元素中单元格的 HTMLCollection
+    - cells：保存着\<tr>元素中单元格的 HTMLCollection
   - **方法**
     - deleteCell(pos)：删除指定位置的单元格
     - insertCell(pos)：向 cells 集合中的指定位置插入一个单元格，返回对新插入单元格的引用
