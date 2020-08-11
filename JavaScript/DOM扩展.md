@@ -93,7 +93,7 @@
 
     *双重保险：`var head = document.head || document.getElementsByTagName("head")[0]; `
 
-- **字符集属性 **
+- **字符集属性**
 
   - **charset属性**
 
