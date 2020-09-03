@@ -606,3 +606,15 @@ for (i=0; i < divs.length; i++){
 //此代码会无限循环
 ```
 
+
+
+*NodeList、HTMLCollection和NamedNodeMap
+
+- NodeList是节点合集，12种类型节点都可以包括
+- HTMLCollection是元素节点合集，只包含元素这一种节点
+- 使用属性返回的节点合集一定是HTMLCollection，使用方法则不同浏览器返回的不同，有可能是NodeList有可能是HTMLCollection
+- NamedNodeMap是属性节点合集
+
+
+
+*querySelector()和querySelectorAll()返回的NodeList是**静态**的，使用jquery也是返回的是静态的

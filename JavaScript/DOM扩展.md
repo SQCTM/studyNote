@@ -21,6 +21,8 @@
 
   *两个方法都是如果传入了浏览器不支持的选择符或者选择符中有语法错误，则会抛出错误
 
+  *两个返回的**NodeList都是静态**的，且**运行速度慢很多**
+
 - **Element类型方法**
 
   - **matchesSelector()**
@@ -54,13 +56,20 @@
     是新集合类型DOMTokenList的实例，是一个元素所有类名的集合
 
     - 有length属性
+    
     - 访问可以用item()，也可以用方括号语法
+    
     - **相关方法**：
       - add(value)：将给定的字符串值添加到列表中。如果值已经存在，就不添加了
       - contains(value)：表示列表中是否存在给定的值，如果存在则返回 true，否则返回 false
       - remove(value)：从列表中删除给定的字符串
       -  toggle(value)：如果列表中已经存在给定的值，删除它；如果列表中没有给定的值，添加它
+      
+      *这些方法都只能传入一个字符串且不能包含空格
+      
     - 支持classList属性的浏览器有Firefox 3.6+和Chrome
+
+  *用for循环多次添加不同class浏览器只会渲染一次，因为渲染和js解析器运行是同步的，在同一时间内只有一个在工作
 
 - **焦点管理**
 
@@ -207,9 +216,9 @@
       ```JavaScript
       //以下代码可确保跨浏览器兼容
       function getInnerText(element){   //读取
-          return (typeof element.textContent == "string") ?         
+          return (typeof element.textContent == "string") ?        
               element.textContent : element.innerText; 
-      } 
+      }       //优选使用textContent 
        
       function setInnerText(element, text){   //写入 
           if (typeof element.textContent == "string"){    
@@ -219,6 +228,13 @@
           } 
       }
       ```
+      
+      *innerText和textContent的区别：
+      
+      - textContent返回的包含script和style标签内容，innerText不包含
+      - innerText返回的值依赖于页面的显示，而textContent依赖于代码的内容
+      - innerText会触发回流（从当前节点退回到根节点将整个页面重新排列渲染），而textContent可能回流可能重绘（从当前节点向下至子节点重新绘制），具体看操作，因此**textContent性能更好**
+      - 两者设置、获取值格式化不同，这一点与第二点相关
 
   - **outerText 属性**
 
@@ -229,8 +245,8 @@
 
 - **滚动**
 
-  - scrollIntoViewIfNeeded(alignCenter)：只在当前元素在视口中不可见的情况下，才滚 动浏览器窗口或容器元素，终让它可见。如果当前元素在视口中可见，这个方法什么也不做。 如果将可选的 alignCenter 参数设置为 true，则表示尽量将元素显示在视口中部（垂直方向）
-  - scrollByLines(lineCount)：将元素的内容滚动指定的行高，lineCount 值可以是正值， 也可以是负值
+  - scrollIntoViewIfNeeded(alignCenter)：只在当前元素在视口中不可见的情况下，才滚动浏览器窗口或容器元素，终让它可见。如果当前元素在视口中可见，这个方法什么也不做。 如果将可选的alignCenter参数设置为true，则表示尽量将元素显示在视口中部（垂直方向）
+  - scrollByLines(lineCount)：将元素的内容滚动指定的行高，lineCount值可以是正值，也可以是负值
   - scrollByPages(pageCount)：将元素的内容滚动指定的页面高度，具体高度由元素的高度决定
 
   *scrollIntoView()和 scrollIntoViewIfNeeded()的作用对象是元素的容器；scrollByLines()和 scrollByPages()影响的则是元素自身
