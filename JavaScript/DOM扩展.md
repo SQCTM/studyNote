@@ -234,7 +234,7 @@
       - textContent返回的包含script和style标签内容，innerText不包含
       - innerText返回的值依赖于页面的显示，而textContent依赖于代码的内容
       - innerText会触发回流（从当前节点退回到根节点将整个页面重新排列渲染），而textContent可能回流可能重绘（从当前节点向下至子节点重新绘制），具体看操作，因此**textContent性能更好**
-      - 两者设置、获取值格式化不同，这一点与第二点相关
+      - 两者设置、获取值时格式化不同，这一点与第二点相关
 
   - **outerText 属性**
 

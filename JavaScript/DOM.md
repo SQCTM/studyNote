@@ -617,4 +617,4 @@ for (i=0; i < divs.length; i++){
 
 
 
-*querySelector()和querySelectorAll()返回的NodeList是**静态**的，使用jquery也是返回的是静态的
+*querySelector()和querySelectorAll()返回的NodeList是**静态**的，使用jquery时也是返回的是静态的
