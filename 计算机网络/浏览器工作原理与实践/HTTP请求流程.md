@@ -111,7 +111,7 @@ HTTP协议建立在TCP连接之上。HTTP是一种允许浏览器向服务器获
 
 ## 重定向操作
 
-当你在浏览器中打开baidu.com时，最终打开的页面地址是https://www.baidu.com/，这涉及到一个**重定向操作**
+当你在浏览器中打开baidu.com时，最终打开的页面地址是https://www.baidu.com/ ，这涉及到一个**重定向操作**
 
 当请求baidu.com时，返回的响应行为：`HTTP/1.1 301 Moved Permanently`，响应头中包含的location字段为：`Location:https://www.baidu.com/`
 
