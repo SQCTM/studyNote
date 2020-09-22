@@ -84,6 +84,7 @@ FP(First Paint)，是衡量Web页面性能的一个重要指标，指从页面�
      3. **断开连接**
 
         数据传输完毕之后就要终止连接，通过“四次挥手”来保证双方都能断开连接
-
-     ![image-20200920155703914](C:\Users\aa\AppData\Roaming\Typora\typora-user-images\image-20200920155703914.png)
+   
+        ![TCP连接生命周期](F:\前端笔记\studyNote\images\TCP连接生命周期.jpg)
+     
 
