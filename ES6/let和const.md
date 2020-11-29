@@ -189,3 +189,66 @@
 
 ## const
 
+声明一个只读的常量，一旦声明，就必须立即初始化，不能留到以后赋值，赋值后常量的值不能改变
+
+```JavaScript
+const PI = 3.14;
+PI = 3; //TypeError: Assignment to constant variable
+
+//只声明不赋值会报错
+const foo;  //SyntaxError: Missing initializer in const declaration.
+```
+
+- 不会提升
+
+- 存在暂时性死区，只能在声明后使用变量
+
+- 不可重复声明
+
+- **本质**
+
+  const保证的不是变量的值不得改动，而是变量指向的内存地址不得改动。对于简单类型的数据，值就保存在变量指向的内存地址，等同于常量；对于复合类型的数据，变量指向的内存地址保存的是一个指针，const只能保证这个指针是固定的
+
+  ```javascript
+  const foo = {};
+  foo.prop = 123;
+  console.log(foo.prop); //123
+  foo = {}; //TypeError: "foo" is read-only
+  ```
+
+- **对象冻结Object.freeze**
+
+  ```javascript
+  const foo = Object.freeze({});
+  foo.prop = 123;
+  
+  //冻结对象本身以及属性 彻底冻结函数
+  var constantize = (obj) => {
+      Object.freeze(obj);
+      Object.keys(obj).forEach((key, i) => {
+          if(typeof obj(key) === 'object') {
+              constantize(obj[key]);
+          }
+      });
+  };
+  ```
+
+
+
+## 顶层对象的属性
+
+在ES5中顶层对象的属性与全局变量是等价的。在ES6中var和function命令声明的全局变量依然是顶层对象的属性，但let、const、class命令声明的全局变量不属于顶层对象的属性
+
+- **顶层对象**
+
+  - 在浏览器中顶层对象是**window**
+  - 在浏览器和Web Worker中，**self**也指向顶层对象
+  - 在Node中顶层对象是**global**
+
+- **this的局限性**
+
+  同一段代码为了能够在各种环境中都取到顶层对象，目前一般是使用this，但this有一定局限性
+
+  - 在全局环境中this会返回顶层对象，但在Node模块和ES6模块中this返回的是当前模块
+  - 函数中的this，若函数不是作为对象的方法运行，this会指向顶层对象，严格模式下this返回undefined
+  - 不管严格模式还是普通模式下，new Function('return this')()返回全局对象
