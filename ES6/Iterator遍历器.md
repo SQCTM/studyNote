@@ -78,6 +78,22 @@
   - TypedArray
   - 函数的 arguments 对象
   - NodeList 对象
+  
+- **字符串的Iterator接口**
+
+  字符串是一个类似数组的对象，也原生具有Iterator接口
+
+  ```javascript
+  var someString = "hi";
+  typeof someString[Symbol.iterator]
+  // "function"
+  
+  var iterator = someString[Symbol.iterator]();
+  
+  iterator.next()  // { value: "h", done: false }
+  iterator.next()  // { value: "i", done: false }
+  iterator.next()  // { value: undefined, done: true }
+  ```
 
 
 
@@ -150,4 +166,89 @@
 
 
 
+## 遍历器对象的return()、throw()方法
+
+自己写遍历器对象生成函数时，`next()`方法是必须部署的，`return()`方法和`throw()`方法是否部署是可选的
+
+- **return()方法**
+
+  使用场合是如果`for...of`循环提前退出（通常是因为出错或有break语句），就会调用`return()`方法
+
+  `return()`方法必须返回一个对象，这是Generator语法决定的
+
+- **throw()方法**
+
+  主要是配合Generator函数使用，一般的遍历器对象用不到这个方法
+
+
+
 ## for...of循环
+
+一个数据结构只要具有iterator接口，就可以用`for...of`循环遍历它的成员。`for...of`循环内部调用的是数据结构的`Symbol.iterator`方法，**循环读取键值**
+
+### 使用范围
+
+没有部署iterator接口的对象不能使用，会报错，但可以使用`for...in`遍历对象键名
+
+- **数组**
+
+  调用数组的遍历器接口只返回具有数字索引的属性
+
+- **Set和Map结构**
+
+  - 遍历的顺序是按照各个成员被添加进数据结构的顺序
+  - Set结构遍历时，返回的是一个值；Map结构遍历时，返回的是一个数组，该数组的两个成员分别为当前 Map成员的键名和键值
+
+- **类似数组的对象**
+
+  ```javascript
+  // 字符串
+  let str = "hello";
+  
+  for (let s of str) {
+    console.log(s); // h e l l o
+  }
+  
+  // DOM NodeList对象
+  let paras = document.querySelectorAll("p");
+  
+  for (let p of paras) {
+    p.classList.add("test");
+  }
+  
+  // arguments对象
+  function printArgs() {
+    for (let x of arguments) {
+      console.log(x);
+    }
+  }
+  printArgs('a', 'b');
+  // 'a'
+  // 'b'
+  ```
+
+- **Generator对象**
+
+
+
+### 与其它遍历作比较
+
+- **forEach**
+
+  数组内置的方法，缺点是无法中途跳出循环，break或return都无效
+
+- **for...in**
+
+  遍历数组和对象的键名，适用于遍历对象，不适用于数组
+
+  - **缺点**
+    - 数组的键名是数字，但是`for...in`循环是以字符串作为键名“0”、“1”、“2”等等。
+    - `for...in`循环不仅遍历数字键名，还会遍历手动添加的其他键，甚至包括原型链上的键
+    - 某些情况下，`for...in`循环会以任意顺序遍历键名
+
+- **for...of相比于以上的优点**
+
+  - 有着同`for...in`一样的简洁语法，但是没有`for...in`那些缺点
+  - 不同于`forEach`方法，它可以与`break`、`continue`和`return`配合使用
+  - 提供了遍历所有数据结构的统一操作接口
+
