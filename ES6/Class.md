@@ -169,11 +169,239 @@ person.sayName(); // "张三"
 
 ### 注意点
 
+- **严格模式**
+
+  类和模块的内部**默认是严格模式**，所以不需要使用`use strict`指定运行模式
+
 - **不存在变量提升**
-- **私有方法**
-- **私有属性**
+
+  类使用在前定义在后会报错，这样规定的**原因与继承有关**
+
+  ```javascript
+  {
+    let Foo = class {};
+    class Bar extends Foo {
+    }
+  }
+  /*
+    上面的代码不会报错，因为Bar继承Foo的时候，Foo已经有定义了
+    如果存在class的提升上面代码就会报错
+    因为class会被提升到代码头部，而let命令是不提升的，所以导致Bar继承Foo的时候，Foo还没有定义
+  */
+  ```
+
 - **this的指向**
+
+  类的方法内部如果含有`this`，它默认指向类的实例
+
 - **name属性**
+
+  本质上ES6的类只是ES5的构造函数的一层包装，所以函数的许多特性都被`Class`继承，包括`name`属性
+
+  ```javascript
+  class Point {}
+  Point.name // "Point"
+  ```
+
+
+
+## 取值函数和存值函数
+
+在类的内部可以使用`get`和`set`关键字，对某个属性设置存值函数和取值函数，拦截该属性的存取行为
+
+```javascript
+class MyClass {
+  constructor() {
+    // ...
+  }
+  get prop() {
+    return 'getter';
+  }
+  set prop(value) {
+    console.log('setter: '+value);
+  }
+}
+
+let inst = new MyClass();
+
+inst.prop = 123;
+// setter: 123
+
+inst.prop
+// 'getter'
+```
+
+存值函数和取值函数是设置在属性的Descriptor**描述对象**上的
+
+
+
+## 私有方法和私有属性
+
+- **私有方法**
+
+  ES6不提供，只能通过变通方法模拟实现
+
+  ```javascript
+  //1.命名
+  class Widget {
+    // 公有方法
+    foo (baz) {
+      this._bar(baz);
+    }
+    // 私有方法
+    _bar(baz) {
+      return this.snaf = baz;
+    }
+  
+  }
+  
+  //2.使得bar()实际上成为了当前类的私有方法
+  class Widget {
+    foo (baz) {
+      bar.call(this, baz);
+    }
+  
+  }
+  
+  function bar(baz) {
+    return this.snaf = baz;
+  }
+  
+  //3.利用Symbol值的唯一性，将私有方法的名字命名为一个Symbol值
+  const bar = Symbol('bar');
+  const snaf = Symbol('snaf');
+  
+  export default class myClass{
+    // 公有方法
+    foo(baz) {
+      this[bar](baz);
+    }
+    // 私有方法
+    [bar](baz) {
+      return this[snaf] = baz;
+    }
+  
+  };
+  ```
+
+- **私有属性**
+
+  目前有一个**提案**，为class加了私有属性。在属性名之前使用`#`表示
+
+  ```javascript
+  class IncreasingCounter {
+    #count = 0;
+    get value() {
+      console.log('Getting the current value!');
+      return this.#count;
+    }
+    increment() {
+      this.#count++;
+    }
+  }
+  const counter = new IncreasingCounter();
+  counter.#count // 报错
+  counter.#count = 42 // 报错
+  ```
+
+  也可以这样写私有方法
+
+
+
+## 静态方法和静态属性
+
+- **静态方法**
+
+  如果在一个方法前加上`static`关键字，就表示该方法**不会被实例调用**，而是**直接通过类来调用**
+
+  ```javascript
+  class Foo {
+    static classMethod() {
+      return 'hello';
+    }
+  }
+  
+  Foo.classMethod() // 'hello'
+  
+  var foo = new Foo();
+  foo.classMethod()  // TypeError: foo.classMethod is not a function
+  ```
+
+  - **注意点**
+    - 如果静态方法包含`this`关键字，这个`this`**指的是类**，而不是实例
+    - 父类的静态方法，可以被子类继承
+    - 父类的静态方法可以在子类中从`super`对象上调用
+
+- **静态属性**
+
+  指的是Class本身的属性，即`Class.propName`，而不是定义在实例对象（`this`）上的属性
+
+  ```javascript
+  //目前只有这个方法可行，因为ES6明确规定，Class内部只有静态方法，没有静态属性
+  class Foo {
+  }
+  
+  Foo.prop = 1;
+  Foo.prop // 1
+  ```
+
+  在实例属性前加`static`还只是提案
+
+
+
+## new.target属性
+
+该属性一般用在构造函数之中，**返回new命令作用于的那个构造函数**。如果构造函数不是通过new命令或`Reflect.construct()`调用的，则会返回`undefined`，因此这个属性可以**用来确定构造函数是怎么调用的**
+
+```javascript
+//以下代码确保构造函数只能通过new命令调用
+function Person(name) {
+  if (new.target !== undefined) {
+    this.name = name;
+  } else {
+    throw new Error('必须使用 new 命令生成实例');
+  }
+}
+
+// 另一种写法
+function Person(name) {
+  if (new.target === Person) {
+    this.name = name;
+  } else {
+    throw new Error('必须使用 new 命令生成实例');
+  }
+}
+
+var person = new Person('张三'); // 正确
+var notAPerson = Person.call(person, '张三');  // 报错
+```
+
+- **注意点**
+
+  - Class内部调用`new.target`，返回当前Class
+  - 子类继承父类时，`new.target`会返回子类
+
+  利用这些特点可以写出不能独立实例化，只能被继承的类
+
+  ```javascript
+  class Shape {
+    constructor() {
+      if (new.target === Shape) {
+        throw new Error('本类不能实例化');
+      }
+    }
+  }
+  
+  class Rectangle extends Shape {
+    constructor(length, width) {
+      super();
+      // ...
+    }
+  }
+  
+  var x = new Shape();  // 报错
+  var y = new Rectangle(3, 4);  // 正确
+  ```
 
 
 
