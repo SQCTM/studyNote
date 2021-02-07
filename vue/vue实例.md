@@ -41,7 +41,7 @@ data.a // => 2
 
     如果在实例创建后才添加 property，那么对该 property 的改动将不会触发任何视图的更新，所以最好提前在 data 对象中设置一些初始值
 
-  - 使用 `Object.freeze()`断绝响应式
+  - 使用 `Object.freeze()`阻止响应式
 
     冻结data对象，阻止修改现有的 property，响应系统无法再追踪变化
 
