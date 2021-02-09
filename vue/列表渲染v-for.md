@@ -6,7 +6,7 @@
 
 通常基于一个**数组**来渲染一个**列表**
 
-
+<br>
 
 ### 基本语法
 
@@ -81,7 +81,7 @@ new Vue({
   <div>1. author: Jane Doe</div>
   <div>2. publishedAt: 2016-04-10</div>
 </div>
-**注意**：在遍历对象时会按`Object.keys()`的结果遍历，但是不能保证它的结果在不同的 JavaScript 引擎下都一致
+**注意：**在遍历对象时会按`Object.keys()`的结果遍历，但是不能保证它的结果在不同的 JavaScript 引擎下都一致
 
 <br>
 
@@ -124,7 +124,7 @@ new Vue({
 
 
 
-### key
+### key属性
 
 给元素加上`key`这一attribute，能使vue跟踪每个节点的身份，从而重用和重新排序现有元素
 

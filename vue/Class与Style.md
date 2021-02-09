@@ -28,6 +28,7 @@
     <!--hasError 的值为 true 时-->
     <div class="static active text-danger"></div>
     ```
+    
   - **写法2**
   
      ```html

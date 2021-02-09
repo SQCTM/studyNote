@@ -94,7 +94,7 @@ Vue 会尽可能高效地渲染元素，通常会**复用已有元素**而不是
 
   `v-show` 不支持 `<template>` 元素，也不支持 `v-else`
 
-
+<br>
 
 ## v-if与v-show对比
 
@@ -112,7 +112,7 @@ Vue 会尽可能高效地渲染元素，通常会**复用已有元素**而不是
 
 <br>
 
-<hr style="height: 1px; margin: 10px 0">
+
 
 [^1]: `truthy` (真值)指的是在布尔值上下文中转换后的值为真的值，除了`Falsy`假值(`false`、`0`、`""`、`null`、`undefined` 和 `NaN`)以外所有的值都是真值
 
