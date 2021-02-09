@@ -43,7 +43,7 @@ var example2 = new Vue({
   <li>Parent - 0 - Foo</li>
   <li>Parent - 1 - Bar</li>
 </ul>
-
+<br>
 
 
 ### 使用对象
@@ -83,7 +83,7 @@ new Vue({
 </div>
 **注意**：在遍历对象时会按`Object.keys()`的结果遍历，但是不能保证它的结果在不同的 JavaScript 引擎下都一致
 
-
+<br>
 
 ### 使用整数
 
@@ -98,7 +98,7 @@ new Vue({
 <div style="border: 1px solid #eee;padding: 25px 35px;">
   1 2 3 4 5 6 7 8 9 10
 </div>
-
+<br>
 
 
 ### 在\<template>元素上使用
@@ -114,7 +114,7 @@ new Vue({
 </ul>
 ```
 
-
+<br>
 
 ## 维护状态
 
@@ -140,7 +140,7 @@ new Vue({
   - `key` 是 Vue 识别节点的一个通用机制，`key` 并不仅与 `v-for` 特别关联
   - 不要使用对象或数组之类的非基本类型值作为 `v-for` 的 `key`，要使用**字符串**或**数值类型**的值
 
-
+<br>
 
 ## v-for不能与v-if一起使用
 
@@ -148,7 +148,7 @@ new Vue({
 
 如果想要有条件地跳过循环的执行，那么可以将 `v-if` 置于外层元素 (或 `<template>`) 上
 
-
+<br>
 
 ## 在组件上使用v-for
 
