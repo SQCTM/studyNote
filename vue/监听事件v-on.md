@@ -54,6 +54,19 @@
     }
   }
   ```
+  
+- **缩写**
+
+  ```html
+  <!-- 完整语法 -->
+  <a v-on:click="doSomething">...</a>
+  
+  <!-- 缩写 -->
+  <a @click="doSomething">...</a>
+  
+  <!-- 动态参数的缩写 (2.6.0+) -->
+  <a @[event]="doSomething"> ... </a>
+  ```
 
 
 
