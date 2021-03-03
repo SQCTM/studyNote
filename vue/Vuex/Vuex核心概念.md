@@ -262,6 +262,11 @@ this.$store.commit('increment')
   }
   ```
 
+- **需遵守的响应规则**
+
+  - 提前在 store 中初始化好所有所需属性
+  - 
+
 
 
 ### Action
