@@ -156,7 +156,7 @@ Document类型表示文档
       - 通常将<!DOCTYPE>标签看成一个与文档其他部分不同的实体
       - 由于浏览器对document.doctype的支持不一致，因此这个属性的用处很有限
 
-  - **文档信息 **（属性指向）
+  - **文档信息**（属性指向）
 
     -  **title属性**
 
@@ -174,13 +174,13 @@ Document类型表示文档
 
       - URL与domain属性是相互关联的。
 
-        eg：document.URL等于http://www.wrox.com/WileyCDA/，则document.domain等于www.wrox.com 
+        eg：document.URL等于`http://www.wrox.com/WileyCDA/`，则document.domain等于`www.wrox.com `
 
       - 可以设置，但有限制：
 
         - 不能将这个属性设置为URL中不包含的域
 
-        - 如果域名一开始是“松散的”（loose），那么不能将它再设 置为“紧绷的”（tight）
+        - 如果域名一开始是“松散的”（loose），那么不能将它再设置为“紧绷的”（tight）
 
           eg：将document.domain设置为"wrox.com"之后，就不能再设置为"p2p.wrox.com"
 
@@ -288,11 +288,11 @@ HTMLElement类型直接继承自Element并添加了一些属性，所有 HTML元
   - **特性与属性**
 
     - 所有特性都是属性，但给DOM元素添加的自定义属性不会自动成为元素特性
-    - 有两个特性用属性访问和用getAttribute()得到结果不同：
-      - style特性，属性访问返回一个对象，getAttribute()访问返回CSS文本
-      - onclick特性，属性访问返回一个函数，getAttribute()访问返回相应代码字符串
+    - 有两个特性用属性访问和用`getAttribute()`得到结果不同：
+      - style特性，属性访问返回一个对象，`getAttribute()`访问返回CSS文本
+      - onclick特性，属性访问返回一个函数，`getAttribute()`访问返回相应代码字符串
 
-- **attributes 属性 **
+- **attributes属性**
 
   - Element 类型是使用attributes属性的唯一一个 DOM节点类型
 
@@ -300,16 +300,16 @@ HTMLElement类型直接继承自Element并添加了一些属性，所有 HTML元
 
   - **NamedNodeMap对象方法**
 
-    - getNamedItem(name)：返回nodeName属性等于name的节点
-    - removeNamedItem(name)：从列表中移除nodeName属性等于name的节点，与 removeAttribute()方法的效果相同，唯一区别是removeNamedItem()返回表示被删除特性的 Attr节点
-    - setNamedItem(node)：向列表中添加节点，以节点的nodeName属性为索引
-    - item(pos)：返回位于数字pos位置处的节点
+    - `getNamedItem(name)`：返回nodeName属性等于name的节点
+    - `removeNamedItem(name)`：从列表中移除nodeName属性等于name的节点，与`removeAttribute()`方法的效果相同，唯一区别是`removeNamedItem()`返回表示被删除特性的 `Attr`节点
+    - `setNamedItem(node)`：向列表中添加节点，以节点的nodeName属性为索引
+    - `item(pos)`：返回位于数字pos位置处的节点
 
     *这些方法不方便，不常用
 
 - **创建元素**
 
-  document.createElement()方法，标签名在HTML中不分大小写
+  `document.createElement()`方法，标签名在HTML中不分大小写
 
 
 
@@ -326,12 +326,12 @@ HTMLElement类型直接继承自Element并添加了一些属性，所有 HTML元
 
 - **操作节点方法**
 
-  - appendData(text)：将text添加到节点的末尾
-  - deleteData(offset, count)：从offset指定的位置开始删除count个字符
-  - insertData(offset, text)：在offset指定的位置插入text
-  - replaceData(offset, count, text)：用text替换从offset指定的位置开始到offset+count为止处的文本
-  - splitText(offset)：从offset指定的位置将当前文本节点分成两个文本节点
-  - substringData(offset, count)：提取从 offset 指定的位置开始到offset+count为止处的字符串
+  - `appendData(text)`：将text添加到节点的末尾
+  - `deleteData(offset, count)`：从offset指定的位置开始删除count个字符
+  - `insertData(offset, text)`：在offset指定的位置插入text
+  - `replaceData(offset, count, text)`：用text替换从offset指定的位置开始到offset+count为止处的文本
+  - `splitText(offset)`：从offset指定的位置将当前文本节点分成两个文本节点
+  - `substringData(offset, count)`：提取从 offset 指定的位置开始到offset+count为止处的字符串
 
 - **方法**
 
@@ -345,13 +345,13 @@ HTMLElement类型直接继承自Element并添加了一些属性，所有 HTML元
 
   - **splitText()**
 
-    分割文本节点，将一个文本节 点分成两个文本节点，接收一个参数表示分割位置。原来的文本节点将包含从开始到指定位置之前的内容，新文本节点将包含剩下的文本。这个方法会返回的新文本节点与原节点的parentNode相同
+    分割文本节点，将一个文本节点分成两个文本节点，接收一个参数表示分割位置。原来的文本节点将包含从开始到指定位置之前的内容，新文本节点将包含剩下的文本。这个方法会返回的新文本节点与原节点的parentNode相同
 
 
 
 ### Comment类型
 
-注释在DOM中是通过Comment类型来表示的。Comment类型与Text类型继承自相同的基类，因此它拥有除splitText()之外的所有字符串操作方法
+注释在DOM中是通过Comment类型来表示的。Comment类型与Text类型继承自相同的基类，因此它拥有除`splitText()`之外的所有字符串操作方法
 
 - **特征属性**
 
@@ -363,13 +363,13 @@ HTMLElement类型直接继承自Element并添加了一些属性，所有 HTML元
 
 - **创建注释节点**
 
-   document.createComment()，不常用
+   `document.createComment()`，不常用
 
 
 
 ### CDATASection类型
 
-CDATASection类型只针对基于XML的文档，表示的是CDATA区域。CDATASection 类型继承自 Text 类型，因此拥有除 splitText()之外的所有字符串操作方法
+CDATASection类型只针对基于XML的文档，表示的是CDATA区域。CDATASection 类型继承自 Text 类型，因此拥有除 `splitText()`之外的所有字符串操作方法
 
 - **特征属性**
 
@@ -381,7 +381,7 @@ CDATASection类型只针对基于XML的文档，表示的是CDATA区域。CDATAS
 
 - **创建CDATA区域**
 
-  document.createCDataSection()
+  `document.createCDataSection()`
 
 
 
@@ -427,7 +427,7 @@ DocumentType类型在Web浏览器中并不常用，仅有Firefox、Safari、Chro
 
 ### Attr类型
 
-元素的特性在DOM中以Attr类型来表示，特性就是存在于元素的 attributes 属性中的节点
+元素的特性在DOM中以Attr类型来表示，特性就是存在于元素的`attributes`属性中的节点
 
 *特性不是文档树的一部分
 
@@ -606,15 +606,13 @@ for (i=0; i < divs.length; i++){
 //此代码会无限循环
 ```
 
+*`NodeList`、`HTMLCollection`和`NamedNodeMap`
 
-
-*NodeList、HTMLCollection和NamedNodeMap
-
-- NodeList是节点合集，12种类型节点都可以包括
-- HTMLCollection是元素节点合集，只包含元素这一种节点
-- 使用属性返回的节点合集一定是HTMLCollection，使用方法则不同浏览器返回的不同，有可能是NodeList有可能是HTMLCollection
-- NamedNodeMap是属性节点合集
+- `NodeList`是节点合集，12种类型节点都可以包括
+- `HTMLCollection`是Element元素节点合集，只包含元素这一种节点
+- 使用属性返回的节点合集一定是`HTMLCollection`，使用方法则不同浏览器返回的不同，有可能是`NodeList`有可能是`HTMLCollection`
+- `NamedNodeMap`是属性节点合集
 
 
 
-*querySelector()和querySelectorAll()返回的NodeList是**静态**的，使用jquery时也是返回的是静态的
+*`querySelector()`和`querySelectorAll()`返回的`NodeList`是**静态**的，使用jquery时也是返回的是静态的

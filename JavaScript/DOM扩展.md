@@ -27,7 +27,7 @@
 
   - **matchesSelector()**
 
-    接收一个参数CSS选择符，如果调用元素与该选择符匹配则返回 true；否则返回 false
+    接收一个参数CSS选择符，如果调用元素与该选择符匹配则返回 `true`；否则返回 `false`
 
 
 
@@ -37,11 +37,11 @@
 
 **为Element元素添加的5个属性**：
 
-- childElementCount：返回子元素（不包括文本节点和注释）的个数
-- firstElementChild：指向第一个子元素；firstChild 的元素版
-- lastElementChild：指向后一个子元素；lastChild 的元素版
-- previousElementSibling：指向前一个同辈元素；previousSibling 的元素版
-- nextElementSibling：指向后一个同辈元素；nextSibling 的元素版
+- `childElementCount`：返回子元素（不包括文本节点和注释）的个数
+- `firstElementChild`：指向第一个子元素；`firstChild` 的元素版
+- `lastElementChild`：指向后一个子元素；`lastChild` 的元素版
+- `previousElementSibling`：指向前一个同辈元素；`previousSibling` 的元素版
+- `nextElementSibling`：指向后一个同辈元素；`nextSibling` 的元素版
 
 
 
@@ -55,19 +55,19 @@
 
     是新集合类型DOMTokenList的实例，是一个元素所有类名的集合
 
-    - 有length属性
+    - 有`length`属性
     
-    - 访问可以用item()，也可以用方括号语法
+    - 访问可以用`item()`，也可以用方括号语法
     
     - **相关方法**：
-      - add(value)：将给定的字符串值添加到列表中。如果值已经存在，就不添加了
-      - contains(value)：表示列表中是否存在给定的值，如果存在则返回 true，否则返回 false
-      - remove(value)：从列表中删除给定的字符串
-      -  toggle(value)：如果列表中已经存在给定的值，删除它；如果列表中没有给定的值，添加它
+      - `add(value)`：将给定的字符串值添加到列表中。如果值已经存在，就不添加了
+      - `contains(value)`：表示列表中是否存在给定的值，如果存在则返回 `true`，否则返回`false`
+      - `remove(value)`：从列表中删除给定的字符串
+      -  `toggle(value)`：如果列表中已经存在给定的值，删除它；如果列表中没有给定的值，添加它
       
       *这些方法都只能传入一个字符串且不能包含空格
       
-    - 支持classList属性的浏览器有Firefox 3.6+和Chrome
+    - 支持`classList`属性的浏览器有Firefox 3.6+和Chrome
 
   *用for循环多次添加不同class浏览器只会渲染一次，因为渲染和js解析器运行是同步的，在同一时间内只有一个在工作
 
@@ -75,16 +75,16 @@
 
   辅助管理DOM焦点的功能
 
-  - **document.activeElement属性**
+  - `document.activeElement`**属性**
 
     引用DOM中当前获得了焦点的元素
 
-    - 元素获得焦点的方式有：页面加载、用户输入（通常是 通过按 Tab 键）和在代码中调用focus()方法
-    - 默认情况下，文档刚刚加载完成时，属性中保存的是document.body元素的引用；文档加载期间，属性的值为null
+    - 元素获得焦点的方式有：页面加载、用户输入（通常是 通过按 Tab 键）和在代码中调用`focus()`方法
+    - 默认情况下，文档刚刚加载完成时，属性中保存的是`document.body`元素的引用；文档加载期间，属性的值为`null`
 
-  - **document.hasFocus()方法**
+  - `document.hasFocus()`**方法**
 
-    用于确定文档是否获得了焦点。是则返回true；否则返回false
+    用于确定文档是否获得了焦点。是则返回`true`；否则返回`false`
 
 - **HTMLDocument的扩展**
 
@@ -104,13 +104,13 @@
 
 - **字符集属性**
 
-  - **charset属性**
+  - `charset`**属性**
 
     表示文档中实际使用的字符集， 也可以用来指定新字符集。默认情况下，属性的值为"UTF-16"
 
-  - **defaultCharset属性**
+  - `defaultCharset`**属性**
 
-    表示根据默认浏览器及操作系统的设置，当前文档默认的字符集。如果文档没有使用默认的字符集，那charset和defaultCharset属性的值可能会不一 样
+    表示根据默认浏览器及操作系统的设置，当前文档默认的字符集。如果文档没有使用默认的字符集，那`charset`和`defaultCharset`属性的值可能会不一 样
 
 - **自定义数据属性**
 
@@ -128,7 +128,7 @@
 
     - **限制**
 
-      在大多数浏览器中，通过innerHTML插入\<script>元素并不会执行其中的脚本（但大多数浏览器都支持以直观的方式通过innerHTML插入\<style>元素
+      在大多数浏览器中，通过`innerHTML`插入`<script>`元素并不会执行其中的脚本（但大多数浏览器都支持以直观的方式通过`innerHTML`插入`<style>`元素
 
   - **outerHTML属性**
 
@@ -163,8 +163,8 @@
 
   可以在所有HTML元素上调用，通过滚动浏览器窗口或某个容器元素，调用元素就可以出现在视口中
 
-  - 如果传入 true或者不传入参数，那么窗口滚动之后会让调用元素的顶部与视口顶部尽可能平齐
-  - 如果传入false，调用元素会尽可能全部出现在视口中，（可能的话调用元素的底部会与视口顶部平齐）不过顶部不一定平齐
+  - 如果传入`true`或者不传入参数，那么窗口滚动之后会让调用元素的顶部与视口顶部尽可能平齐
+  - 如果传入`false`，调用元素会尽可能全部出现在视口中，（可能的话调用元素的底部会与视口顶部平齐）不过顶部不一定平齐
 
 
 
@@ -172,11 +172,11 @@
 
 - **children属性**
 
-  是HTMLCollection的实例，与childNodes属性没有什么区别
+  是HTMLCollection的实例，与`childNodes`属性没有什么区别
 
 - **contains()方法**
 
-  检测传入方法的节点是否是调用方法的节点的**后代节点**。是就返回true；否则返回false
+  检测传入方法的节点是否是调用方法的节点的**后代节点**。是就返回`true`；否则返回`false`
 
 - **插入文本**
 
@@ -245,11 +245,11 @@
 
 - **滚动**
 
-  - scrollIntoViewIfNeeded(alignCenter)：只在当前元素在视口中不可见的情况下，才滚动浏览器窗口或容器元素，终让它可见。如果当前元素在视口中可见，这个方法什么也不做。 如果将可选的alignCenter参数设置为true，则表示尽量将元素显示在视口中部（垂直方向）
-  - scrollByLines(lineCount)：将元素的内容滚动指定的行高，lineCount值可以是正值，也可以是负值
-  - scrollByPages(pageCount)：将元素的内容滚动指定的页面高度，具体高度由元素的高度决定
+  - `scrollIntoViewIfNeeded(alignCenter)`：只在当前元素在视口中不可见的情况下，才滚动浏览器窗口或容器元素，终让它可见。如果当前元素在视口中可见，这个方法什么也不做。 如果将可选的alignCenter参数设置为true，则表示尽量将元素显示在视口中部（垂直方向）
+  - `scrollByLines(lineCount)`：将元素的内容滚动指定的行高，lineCount值可以是正值，也可以是负值
+  - `scrollByPages(pageCount)`：将元素的内容滚动指定的页面高度，具体高度由元素的高度决定
 
-  *scrollIntoView()和 scrollIntoViewIfNeeded()的作用对象是元素的容器；scrollByLines()和 scrollByPages()影响的则是元素自身
+  *`scrollIntoView()`和 `scrollIntoViewIfNeeded()`的作用对象是元素的容器；`scrollByLines()`和 `scrollByPages()`影响的则是元素自身
 
   *以上方法都只有Safari和Chrome实现了
 

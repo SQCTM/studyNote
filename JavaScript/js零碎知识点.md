@@ -641,7 +641,7 @@ DOM将HTML或XML文档描绘成一个由多层节点构成的结构
 
     - `nodeValue`：节点的值
 
-    - `childNodes`：保存着一个含该节点所有子节点的`NodeList`类数组对象，有`length`属性，是基于DOM结构动态执行查询的结果
+    - `childNodes`：保存着一个含该节点所有子节点的`NodeList`类数组对象，有`length`属性，是基于DOM结构**动态**执行查询的结果
 
       **访问**：`someNode.childNodes[0]` 或 `someNode.childNodes.item(0)`
 
@@ -669,12 +669,366 @@ DOM将HTML或XML文档描绘成一个由多层节点构成的结构
 
 - **Document类型**
 
-  
+  表示文档
+
+  - document 对象是 HTMLDocument（继承自Document 类型）的一个实例，**表示整个HTML页面**；也是window对象的一个属性，因此**可以将其作为全局对象来访问**
+
+  - **属性**
+
+    - `documentElement`：指向HTML页面中的`<html>`元素
+    - `body`：指向`<body>`元素
+    - `doctype`：指向`<!DOCTYPE>，这个属性用处很有限
+    - `title`：包含着`<title>`元素中的文本，修改该值不会改变`<title>`元素
+    - `URL`：包含页面完整的URL，即地址栏中显示的 URL（不可以设置）
+    - `domain`：包含页面的**域名**，与URL属性相互关联；可以设置，但有限制，不能将这个属性设置为URL中不包含的域，并且如果域名一开始是“松散的”，那么不能将它再设置为“紧绷的”
+    - `referrer`：保存着链接到当前页面的那个页面的URL，在没有来源页面的情况下可能会包含空字符串；不可以设置
+
+  - **方法**
+
+    这些查找元素的方法也可以在Element元素上调用
+
+    - `getElementById()`：根据ID名查找元素并返回，没找到则返回`null`；只返回文档中第一次出现的元素
+
+    - `getElementsByTagName()`：根据标签名查找元素，返回一个**HTMLCollection对象**作为**动态集合**
+
+      `document.getElementsByTagName("*")`指取得文档中所有元素
+
+    - `getElementsByClassName()`：通过`class`类名查找元素
+
+    - `getElementsByName()`：通过`name`特性查找元素
+
+  - **文档写入**
+
+    - `write()`：将文本写入到输出流中，原样写入
+    - `writeln()`：将文本写入到输出流中，在字符串的末尾添加一个换行符（`\n`）
+    - `open()`：打开网页输出流
+    - `close()`：关闭网页输出流
+
+  - **特殊集合**
+
+    这些集合都是HTMLCollection对象
+
+    - `document.anchors`：文档中所有带`name`特性的`<a>`元素
+    - `document.forms`：文档中所有的`<form>`元素
+    - `document.images`：文档中所有的`<img>`元素
+    - `document.links`：文档中所有带`href`特性的`<a>`元素
+
+  - **HTMLCollection对象**
+
+    - 和`NodeList`类似
+    - 有`length`属性
+    - 可以用方括号和`item()`访问
+    - 有`namedItem()`方法，通过元素的name特性取得集合中的项
 
 - **Element类型**
 
-  
+  HTMLElement 类型直接继承自 Element 并添加了一些属性，所有 HTML 元素都是由 HTMLElement 或者其更具体的子类型来表示的
 
+  - **标准特性**
+
+    - `id`：元素在文档中的唯一标识符
+    - `title`：有关元素的附加说明信息，一般通过工具提示条显示出来
+    - `lang`：元素内容的语言代码，很少使用
+    - `dir`：语言的方向，值为"ltr"（left-to-right，从左至右）或"rtl"（right-to-left，从右至左） ， 很少使用
+    - `className`：类名
+
+  - **自定义特性(HTML5)**
+
+    HTML5新增`dataset`(数据集)(对象)属性，用来存放**自定义属性**
+
+    自定义格式：**data-属性名**；获取自定义属性：**元素.dataset.属性名**
+
+  - **特性方法**
+
+    - `getAttribute()`：取得特性，包括自定义特性，取得的是**字符串**，取不到则返回`null`
+    - `setAttribute()`：设置特性，设置的特性名会被统一转换为**小写**形式
+    - `removeAttribute()`：删除特性，只能删除非标准特性，**标准特性一旦被设置就无法删除**
+
+  - **特性与属性的关系**
+
+    - 所有特性都是属性，但给元素添加的自定义属性不会自动成为元素特性
+    - 有两个特性用属性访问和用`getAttribute()`得到结果不同：
+      - `style`特性，属性访问返回一个对象，`getAttribute()`访问返回CSS文本
+      - `onclick`特性，属性访问返回一个函数，`getAttribute()`访问返回相应代码字符串
+
+  - `attributes`**属性**
+
+    Element 类型是使用`attributes`属性的唯一一个 DOM 节点类型，该属性中包含一个`NamedNodeMap`**动态集合**，元素的每一个特性都由一个 `Attr` 节点表示，这些节点都保存在`NamedNodeMap`对象中
+
+  - **创建元素**
+
+    `document.createElement()`方法，标签名在HTML中**不分大小写**
+
+- `NodeList`、`HTMLCollection`和`NamedNodeMap`
+
+  - `NodeList`是节点合集，**12种类型节点都可以包括**
+  - `HTMLCollection`是Element元素节点合集，**只包含元素这一种节点**
+  - 使用属性返回的节点合集一定是`HTMLCollection`；使用方法则不同浏览器返回的不同，有可能是`NodeList`有可能是`HTMLCollection`
+  - `NamedNodeMap`是**属性节点合集**
+  
 - **Text类型**
 
+  文本节点
   
+  - **属性**
+    - `length`：保存着节点中的字符数目
+  - **方法**
+    - `document.createTextNode()`：创建文本节点
+    - `normalize()`：规范化文本节点，删除空白节点，合并相邻文本节点（如果两个文本节点是相邻的同胞节点，则这两个节点中的文本会连起来显示，中间不会有空格
+    - `splitText()`：分割文本节点，将一个文本节点分成两个文本节点，接收一个参数表示分割位置。原来的文本节点将包含从开始到指定位置之前的内容，新文本节点将包含剩下的文本。这个方法返回的新文本节点与原节点的`parentNode`相同
+  
+- **Comment类型**
+
+  注释类型，与Text类型继承自相同的基类，因此它拥有除`splitText()`之外的所有字符串操作方法
+
+- **Attr类型**
+
+  元素的特性在DOM中以Attr类型表示，特性就是存在于元素的`attributes`属性中的节点
+
+  - 特性不是文档树的一部分
+  - 不建议直接访问特性节点
+
+- **Selectors API**
+
+  让**浏览器原生支持CSS查询**的标准
+
+  - `querySelector()`
+
+    接收一个CSS选择符，返回与该模式匹配的**第一个元素**，如果没有找到则返回`null`
+
+    - 通过Document类型调用时，会在**文档元素的范围内**查找匹配的元素
+    - 通过Element类型调用时，只会在**该元素后代元素的范围内**查找匹配的元素
+
+  - `querySelectorAll()`
+
+    返回一个`NodeList`的实例，包含所有匹配的元素，如果没有找到匹配的元素则`NodeList`是空的
+
+  - `querySelector()`和`querySelectorAll()`两个返回的`NodeList`都是**静态**的，且**运行速度慢很多**
+
+  - `matchesSelector()`：是Element类型方法。接收一个参数CSS选择符，如果调用元素与该选择符匹配则返回 `true`，否则返回 `false`
+
+- **Element Traversal API**
+
+  为Element元素添加了5个属性：
+
+  - `childElementCount`：返回子元素（不包括文本节点和注释）的个数
+  - `firstElementChild`：指向第一个子元素；`firstChild` 的元素版
+  - `lastElementChild`：指向后一个子元素；`lastChild` 的元素版
+  - `previousElementSibling`：指向前一个同辈元素；`previousSibling` 的元素版
+  - `nextElementSibling`：指向后一个同辈元素；`nextSibling` 的元素版
+
+- **HTML5扩展**
+
+  - `getElementsByClassName()`
+
+  - `classList`**属性**
+
+    是一个元素所有类名的集合
+
+    - 有`length`属性
+
+    - 访问可以用`item()`，也可以用方括号语法
+
+    - **相关方法**：
+
+      - `add(value)`：将给定的字符串值添加到列表中。如果值已经存在，就不添加了
+      - `contains(value)`：判断列表中是否存在给定的值，如果存在则返回 `true`，否则返回`false`
+      - `remove(value)`：从列表中删除给定的字符串
+      - `toggle(value)`：如果列表中已经存在给定的值，删除它；如果列表中没有给定的值，添加它
+
+      *这些方法都只能传入一个字符串且不能包含空格
+
+    - 用for循环多次添加不同class浏览器只会渲染一次，因为渲染和js解析器运行是同步的，在同一时间内只有一个在工作
+
+  - `children`**属性**：是HTMLCollection的实例，与`childNodes`属性没有什么区别
+
+  - `contains()`**方法**：检测传入的节点是否是调用方法的节点的**后代节点**。是就返回`true`；否则返回`false`
+
+  - `innerHTML`**属性**
+
+    - 读取时，返回与调用元素的所有子节点（包括元素、注释和文本节点）对应的HTML标记
+
+    - 写入时，会根据指定的值创建新的DOM树，然后用这个DOM树完全替换调用元素原先的所有子节点（如果设置的值仅是文本没有HTML标签，则结果是设置纯文本
+
+    - **限制**
+
+      在大多数浏览器中，通过`innerHTML`插入`<script>`元素不会执行其中的脚本（但大多数浏览器都支持以直观的方式通过`innerHTML`插入`<style>`元素
+
+  - `outerHTML`**属性**
+
+    - 读取时，返回调用它的元素及所有子节点的HTML标签
+    - 写入时，会根据指定的HTML字符串创建新的DOM子树，然后用这个DOM子树完全替换调用元素
+
+  - `innerText`**属性**
+
+    操作元素中包含的所有文本内容，包括子文档树中的文本
+
+    - 读取值时，它会按照由浅入深的顺序，将子文档树中的所有文本拼接起来
+    - 写入值时，结果会删除元素的所有子节点，插入包含相应文本值的文本节点
+
+  - `outerText`**属性**
+
+    操作包括元素本身以及元素中包含的所有文本内容
+
+    - 读取值时，它会按照由浅入深的顺序，将元素中的所有文本拼接起来
+    - 包含相应文本值的文本节点会**替换整个元素**（包括子节点）
+
+  - **焦点管理**
+
+    - `document.activeElement`**属性**：引用DOM中当前获得了焦点的元素。默认情况下，文档刚刚加载完成时，属性中保存的是`document.body`元素的引用；文档加载期间，属性的值为`null`
+    - `document.hasFocus()`**方法**：用于确定文档是否获得了焦点。是则返回true；否则返回false
+
+  - **HTMLDocument的扩展**
+
+    - `readyState`**属性**：指示文档是否加载完成。若值为`loading`则是正在加载文档；若值为`complete`则是已经加载完文档
+
+    - `compatMode`**属性**：检测页面的兼容模式，区分渲染页面的模式是标准的还是混杂的
+
+    - `head`**属性**：`document.head`属性， 引用文档的`<head>`元素
+
+      双重保险：`var head = document.head || document.getElementsByTagName("head")[0]; `
+
+  - **字符集属性**
+
+    - `charset`**属性**：表示文档中实际使用的字符集， 也可以用来指定新字符集。默认情况下为"UTF-16"
+
+    - `defaultCharset`**属性**：表示根据默认浏览器及操作系统的设置，**当前文档默认的字符集**。如果文档没有使用默认的字符集，那`charset`和`defaultCharset`属性的值可能会不一 样
+
+
+
+
+## 事件
+
+- **事件流**
+
+  事件流描述的是**从页面中接收事件的顺序**
+
+  - **事件冒泡**：事件开始时，由最具体的元素接收，然后逐级向上传播到较为不具体的节点（文档）
+
+  - **事件捕获**：不太具体的节点在事件到达预定目标最具体的节点之前捕获它，先接收到事件，而预定目标最后接收到事件；虽然规范要求事件从document对象开始传播，但支持的浏览器都是**从window对象开始**捕获事件
+
+  - **DOM事件**
+
+    包括三个阶段：
+
+    - **事件捕获阶段**：不涉及事件目标
+    - **处于目标阶段**：事件发生
+    - **事件冒泡阶段**：对事件做出响应
+
+  - 事件的传播按HTML结构传播，**不受CSS影响**。因为**事件的绑定是浏览器实现的**，浏览器的解析是按HTML结构解析的，因此即使例如CSS将内节点与外节点的位置改变也不会影响事件的传播
+
+- **事件处理程序**
+
+  **响应某个事件的函数**就叫事件处理程序或事件侦听器
+
+  - **HTML事件处**
+
+    ```html
+    <input type="button" value="Click Me" onclick="showMessage()" />
+    <script type="text/javascript">     
+        function showMessage(){            
+            alert("Hello world!");     
+        } 
+    </script> 
+    ```
+
+    - 此方式添加的事件会在事件流的**冒泡阶段**被处理，事件处理程序中的代码在执行时有权访问**全局作用域**中任何代码
+
+    - **局部变量**`event`**和**`this`
+
+      `event`：直接访问事件对象；`this`：事件的目标元素
+
+      ```html
+      <input type="button" value="Click Me" onclick="alert(event.type)">
+      <!-- 输出 "click" -->
+      
+      <input type="button" value="Click Me" onclick="alert(this.value)">
+      <!-- 输出 "Click Me" -->
+      ```
+
+    - **缺点**
+
+      有时间差，有时页面已经加载完成，触发元素事件时，包含相应代码的js文件未加载完成，事件执行失败；并且HTML与JS代码紧密耦合，不易修改代码
+
+  - **DOM0级事件处**
+
+    将一个函数赋值给一个事件处理程序属性，这些属性通常全部小写
+
+    ```js
+    var btn = document.getElementById("myBtn"); 
+    btn.onclick = function(){     
+        alert("Clicked"); 
+    }; 
+    ```
+
+    - 该方式添加的事件处理程序会在事件流的**冒泡阶段**被处理
+    - **作用域**：该方式事件处理程序会在所属元素的作用域内运行。即程序中this引用当前元素
+    - 删除事件直接将事件处理程序属性设置为`null`
+    - **优点**：解决了HTML事件处理程序的缺点，具有跨浏览器的优势
+    - **缺点**：一次只能指定一个事件处理程序，指定多个会覆盖
+
+  - **DOM2级事件处理**
+
+    - `addEventListener()`**添加事件**
+
+      ```js
+      var btn = document.getElementById("myBtn"); 
+      btn.addEventListener("click", function(){    
+          alert(this.id); 
+      }, false); 
+      btn.addEventListener("click", function(){     
+          alert("Hello world!"); 
+      }, false); 
+      //先显示id再显示Hello world!
+      ```
+
+      - **作用域**：该方式事件处理程序会在其依附的元素的作用域内运行。即程序中this引用当前元素
+      - 可以添加多个事件，不会覆盖，且按照添加顺序执行
+
+    - `removeEventListener()`**删除**
+
+      `addEventListener()`添加的事件只能通过此事件删除，删除时传入的函数必须和添加时传入的函数是**同一引用**，删除事件在一次删除中只能删除冒泡或捕获阶段其中一个阶段
+
+    - 都是**三个参数**：处理事件名；事件处理程序的函数；一个布尔值或布尔类型对象（表示调用程序是在事件冒泡阶段还是捕获阶段，默认为`false`，`false`即冒泡阶段，`true`即捕获阶段）
+
+    - 所有DOM节点都支持这两种方法，这两个方法都**同时支持事件冒泡和事件捕获**
+
+  - **IE事件处理**
+
+    - `attachEvent()`
+
+      - 该方式事件处理程序会在**全局作用域**中运行，即`this`引用的是window对象
+      - 可以添加多个事件，但**事件以与添加顺序相反的顺序触发**
+      - 该方式添加的事件都会**被添加到冒泡阶段**
+
+    - `detachEvent()`
+
+      删除`attachEvent()`添加的事件，删除时传入的函数必须和添加时传入的函数是**同一引用**
+
+- **事件优先级**
+
+  - HTML事件会被属性事件覆盖，两种方法实现机制是一样的，只是写法不同，因此会覆盖
+  - 目标元素上的事件执行顺序按代码中绑定的顺序执行，不按捕获、冒泡的顺序执行
+  - 冒泡阶段事件若有HTML事件则其优先执行再被属性事件覆盖，再执行`addEventListener()`事件，因为事件的绑定是浏览器实现的，浏览器在执行整个网页的过程中先解析HTML；若没有HTML事件则按代码中绑定的顺序执行
+
+- **鼠标事件触发顺序**
+
+  1. `mousedown`
+  2. `mouseup`
+  3. `click`
+  4. `mousedown`
+  5. `mouseup`
+  6. `click`
+  7. `dblclick`
+
+  **注意**：
+
+  - 只有在同一个元素上相继触发`mousedown`和`mouseup`事件，才会触发`click`事件，如果`mousedown`或`mouseup`中的一个被取消，就不会触发`click`事件
+  - 只有触发两次`click`事件，才会触发一次`dblclick`事件。如果有代码阻止了连续两次触发`click`事件，那么就不会触发`dblclick`事件
+
+- **内存与性能**
+
+  - 在JS中添加到页面上的事件处理程序数量将直接关系到页面的整体运行性能。每个函数都是对象，会占用内存，内存中对象越多，性能就越差
+  - 每当将事件处理程序指定给元素时，运行中的浏览器代码与支持页面交互的 JS 代码之间会建立一个连接。连接越多，页面执行起来就越慢。所以要在不需要时移除事件处理程序，移除方法：
+    - 手动移除事件处理程序，设置`null`
+    - 在页面被卸载之前没有清理干净事件处理程序它们就会滞留在内存中，所以要在页面卸载之前，先通过`onunload`事件处理程序移除所有事件处理程序
