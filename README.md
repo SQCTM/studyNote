@@ -4,6 +4,7 @@
 - **Javascript**
 
   - 看红宝书写的笔记
+  - 自己的一些总结
 
 - **ES6**
 
@@ -23,8 +24,10 @@
   - 一些算法总结
 
 - **浏览器工作原理**
+  
   - [极客时间《浏览器工作原理与实践》](https://time.geekbang.org/column/intro/100033601)
 - **计算机网络**
+  
   - [极客时间《透视HTTP协议》](https://time.geekbang.org/column/intro/100029001)
 
 
